@@ -21,8 +21,12 @@ mongoose.connect(process.env.MONGO_URI, {
 .catch((err) => console.error('MongoDB connection error:', err));
 
 // Routes (we'll add these later)
-app.use('/auth', require('./routes/auth'));
+app.use('/auth', require('./routes/auth.js'));
 app.use('/todos', require('./routes/todos'));
+
+app.get('/', (req, res) => {
+  res.send('Welcome to the backend!');
+});
 
 app.get('/getusers', async (req, res) => {
   const users = await User.find();

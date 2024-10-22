@@ -27,13 +27,15 @@ const LoginBox = () => {
 
     setError("");
     setLoading(true);
+    
 
     try {
-      const response = await api.post("/auth", {
-        username: username,
-        password: password,
+      console.log('helllo');
+      const response = await api.get("/auth/register", {
+        username,
+        password,
       });
-
+      console.log('hi');
       if (response.status === 200 && response.data.token) {
         
         localStorage.setItem('token', response.data.token);
@@ -42,7 +44,7 @@ const LoginBox = () => {
         myInstance.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
 
         console.log("Login successful");
-        navigate("/mainpage", { state: { userId: username } });
+        navigate("/main", { state: { userId: username } });
         setUsername("");
         setPassword("");
       } else {

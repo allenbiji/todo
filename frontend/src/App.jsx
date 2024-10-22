@@ -12,11 +12,8 @@ const App = () => {
     <div className="flex items-center justify-center w-screen h-screen bg-gray-100">
       <BrowserRouter>
         <Routes>
-          
           <Route path="/" element={<NewLoginPage />} />
-          <Route path="/main" element={<TodoPage />} />
-
-          
+          <Route path="/mainpage" element={<TodoPage />} />
         </Routes>
       </BrowserRouter>
     </div>
