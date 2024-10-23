@@ -27,24 +27,26 @@ const LoginBox = () => {
 
     setError("");
     setLoading(true);
-    
+
+    console.log("Username:", username);
+    console.log("Password:", password);
 
     try {
-      console.log('helllo');
-      const response = await api.get("/auth/register", {
+      console.log("reached fronted api");
+      const response = await api.post("/auth/login", {
         username,
         password,
       });
-      console.log('hi');
+      console.log("inside try");
       if (response.status === 200 && response.data.token) {
-        
-        localStorage.setItem('token', response.data.token);
-        
-        
-        myInstance.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+        localStorage.setItem("token", response.data.token);
+
+        api.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${response.data.token}`;
 
         console.log("Login successful");
-        navigate("/main", { state: { userId: username } });
+        navigate("/mainpage", { state: { userId: username } });
         setUsername("");
         setPassword("");
       } else {
@@ -60,8 +62,8 @@ const LoginBox = () => {
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
-      <form 
-        onSubmit={handleSubmit} 
+      <form
+        onSubmit={handleSubmit}
         className="bg-white p-6 rounded-sm shadow-md w-80"
       >
         <h2 className="text-2xl font-bold text-cyan-400 mb-7 mt-5 text-center">
@@ -69,7 +71,7 @@ const LoginBox = () => {
         </h2>
 
         {error && <p className="text-red-500 mb-4">{error}</p>}
-        
+
         <div className="mb-4">
           <label htmlFor="username" className="block text-black-700">
             Username

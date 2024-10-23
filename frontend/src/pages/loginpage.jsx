@@ -1,13 +1,9 @@
 import React from "react";
-import LoginBox from "../components/loginform";  
+import LoginBox from "../components/loginform";
 
 const NewLoginPage = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-50">
-      
-      
-      
-      
       <div className="w-full max-w-md">
         <LoginBox />
       </div>

@@ -39,34 +39,29 @@ router.get('/register', async (req, res) => {
 });
 
 // Login
-router.get('/test', async (req, res) => {
-  console.log('nth myr ano')
-  // try {
-  //   const { username, password } = req.body;
+router.post('/login', async (req, res) => {
+  console.log('Login attempt received');
+  console.log(req.body);
+  try {
+    const { username, password } = req.body;
 
-  //   // Check if user exists
-  //   let user = await User.findOne({ username });
-  //   if (!user) {
-  //     return res.status(400).json({ message: 'Invalid credentials' });
-  //   }
+    // Check if user exists
+    let user = await User.findOne({ username });
+    console.log(user);
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid credentials' });
+    }
 
-  //   // Check password
-  //   const isMatch = await bcrypt.compare(password, user.password);
-  //   if (!isMatch) {
-  //     return res.status(400).json({ message: 'Invalid credentials' });
-  //   }
-
-  //   // Create and return JWT
-  //   const payload = { user: { id: user.id } };
-  //   jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
-  //     if (err) throw err;
-  //     res.json({token});
-      
-  //   });
-  // } catch (err) {
-  //   console.error(err.message);
-  //   res.status(500).send('Server error');
-  // }
+    // Create and return JWT
+    const payload = { user: { id: user.id } };
+    jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
+      if (err) throw err;
+      res.json({ token });
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
 });
 
 module.exports = router;
